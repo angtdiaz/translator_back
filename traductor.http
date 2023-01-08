@@ -1,0 +1,12 @@
+# GET http://localhost:3000/languages
+
+# POST http://localhost:3000/traslation
+# Content-Type: application/x-www-form-urlencoded
+# X-RapidAPI-Key: 11d2ae6882msh5eddf09838d1457p1a180bjsnaf61a6d68e70
+# X-RapidAPI-Host: text-translator2.p.rapidapi.com
+
+# <request>
+#     <source_language>es</source_language>
+#     <target_language>en</target_language>
+#     <text>hola<text>
+# </request>
