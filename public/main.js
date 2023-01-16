@@ -6,7 +6,7 @@ const options = {
 };
 let source_language = "es";
 let target_language = "en";
-fetch("http://0.0.0.0:3000/languages", options)
+fetch("https://0.0.0.0:3000/languages", options)
   .then((res) => res.json())
   .then((objeto) => {
     let lenguages = objeto.data.languages;
@@ -48,7 +48,7 @@ translate.addEventListener("click", () => {
     body: encodedParams,
   };
 
-  fetch("http://0.0.0.0:3000/traslation", options)
+  fetch("https://0.0.0.0:3000/traslation", options)
     .then((response) => response.json())
     .then((response) => (trasnlateTo.value = response.data.translatedText))
     .catch((err) => console.error(err));
