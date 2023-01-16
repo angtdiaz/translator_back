@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
 });
 
 const client = redis.createClient({
-  host: "0.0.0.0",
+  host: "10.136.67.5",
   port: 6379,
 });
 client.connect();
