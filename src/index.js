@@ -6,6 +6,7 @@ const app = express();
 const responseTime = require("response-time");
 const redis = require("redis");
 const baseUrl = "https://text-translator2.p.rapidapi.com";
+var config = require("./config.json");
 
 app.use(responseTime());
 app.use(cors());
@@ -18,8 +19,8 @@ app.get("/", (req, res) => {
 });
 
 const client = redis.createClient({
-  host: "10.136.67.5",
-  port: 6379,
+  host: config.redisClusterHost,
+  port: config.redisClusterPort,
 });
 client.connect();
 
