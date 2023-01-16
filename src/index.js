@@ -10,7 +10,7 @@ const responseTime = require("response-time");
 var RedisClient = require("redis");
 const baseUrl = "https://text-translator2.p.rapidapi.com";
 var config = require("../config.json");
-const port = process.env.PORT;
+const port = process.env.APP_PORT;
 app.use(responseTime());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
