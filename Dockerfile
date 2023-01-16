@@ -4,4 +4,4 @@ COPY . .
 RUN npm install
 EXPOSE 8080
 
-CMD [ "node","start" ]
+CMD [ "node","src/index.js" ]
