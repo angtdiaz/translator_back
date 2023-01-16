@@ -1,5 +1,5 @@
 {
-    "redisClusterHost":"10.136.67.5",
+    "redisClusterHost":"elastic-redis-001.dng2bt.0001.use1.cache.amazonaws.com:6379",
     "redisClusterPort":6379
 
 }
