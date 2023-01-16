@@ -1,0 +1,28 @@
+.header{
+    text-align: center;
+}
+
+.languages-container{
+    
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+
+
+.first-section, .second-section{
+    display: flex;
+    flex-direction: column;
+    width: 180px;
+    
+}
+
+.label{
+    text-align:center;
+    border: 1px solid black;
+}
+.result-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}

@@ -1,27 +1,54 @@
 const express = require("express");
+var RedisClustr = require("redis-clustr");
 const axios = require("axios");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
 const responseTime = require("response-time");
-const redis = require("redis");
+var RedisClient = require("redis");
 const baseUrl = "https://text-translator2.p.rapidapi.com";
+var config = require("../config.json");
 
 app.use(responseTime());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(express.static("public"));
 
-const client = redis.createClient({
-  host: "127.0.0.1",
-  port: 6379,
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
-client.connect();
 
-client.on("error", (err) => console.log("Redis Client Error", err));
+var redis = new RedisClustr({
+  servers: [
+    {
+      host: config.redisClusterHost,
+      port: config.redisClusterPort,
+    },
+  ],
+  createClient: function (port, host) {
+    // this is the default behaviour
+    console.log(port, host);
+    return RedisClient.createClient(port, host);
+  },
+});
+
+redis.on("connect", () => {
+  console.log("Redis client is initiating a connection to the server.");
+});
+
+redis.on("ready", () => {
+  console.log("Redis client successfully initiated connection to the server.");
+});
+
+redis.on("reconnecting", () => {
+  console.log("Redis client is trying to reconnect to the server...");
+});
+
+redis.on("error", (err) => console.log("Redis Client Error", err));
 
 app.get("/languages", async (req, res) => {
-  const resp = await client.get("languages");
+  const resp = await redis.get("languages");
 
   if (resp) {
     console.log("get");
@@ -37,7 +64,7 @@ app.get("/languages", async (req, res) => {
 
     res.send(response.data);
 
-    client.set("languages", JSON.stringify(response.data)).then(
+    redis.set("languages", JSON.stringify(response.data)).then(
       (value) => {
         console.log("set");
       },
@@ -51,7 +78,7 @@ app.get("/languages", async (req, res) => {
 app.post("/traslation", async (req, res) => {
   const key = req.body.text + "-" + req.body.target_language;
 
-  const resp = await client.get(key);
+  const resp = await redis.get(key);
 
   if (resp) {
     console.log("get");
@@ -66,11 +93,9 @@ app.post("/traslation", async (req, res) => {
     };
     const response = await axios.post(baseUrl + "/translate", req.body, config);
 
-    res.send(response.data);
-
-    client.set(key, JSON.stringify(response.data)).then(
+    redis.set(key, JSON.stringify(response.data)).then(
       (value) => {
-        console.log(value);
+        console.log("set");
         res.send(response.data);
       },
       (err) => {
