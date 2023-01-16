@@ -49,6 +49,10 @@ redis.on("reconnecting", () => {
 
 redis.on("error", (err) => console.log("Redis Client Error", err));
 
+app.get("/test", async (req, res) => {
+  res.send({ msg: "sdasda" });
+});
+
 app.get("/languages", async (req, res) => {
   const resp = await redis.get("languages");
 
