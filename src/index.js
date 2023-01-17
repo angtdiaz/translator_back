@@ -18,9 +18,12 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-client = redis.createClient({
-  url: config.url,
-  tls: {},
+const client = redis.createCluster({
+  rootNodes: [
+    {
+      url: config.url,
+    },
+  ],
 });
 // client.connect();
 
