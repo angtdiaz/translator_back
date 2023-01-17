@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
 });
 
 const client = redis.createClient({
-  url: config.redisClusterHost,
+  url: config.url,
   tls: {},
 });
 client.connect();
