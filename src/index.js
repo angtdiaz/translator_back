@@ -18,11 +18,11 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-const client = redis.createClient({
-  host: config.redisClusterHost,
-  port: config.redisClusterPort,
+client = redis.createClient({
+  url: config.url,
+  tls: {},
 });
-client.connect();
+// client.connect();
 
 client.on("connect", () => {
   console.log("Redis client is initiating a connection to the server.");
