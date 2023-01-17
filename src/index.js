@@ -47,7 +47,7 @@ app.get("/languages", async (req, res) => {
   } else {
     const config = {
       headers: {
-        "X-RapidAPI-Key": "11d2ae6882msh5eddf09838d1457p1a180bjsnaf61a6d68e70",
+        "X-RapidAPI-Key": "ed49efd3e4msh2398f89f8d3f207p1cfd83jsn5528ad548edc",
         "X-RapidAPI-Host": "text-translator2.p.rapidapi.com",
       },
     };
