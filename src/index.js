@@ -25,7 +25,7 @@ const client = redis.createCluster({
     },
   ],
 });
-// client.connect();
+client.connect();
 
 client.on("connect", () => {
   console.log("Redis client is initiating a connection to the server.");
